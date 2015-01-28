@@ -1,4 +1,22 @@
 Things I'd do better
+    - Specify the port to listen to based on environment var (if you wanted to host on Heroku you'd do this)
     - Have a template
     - Have a way for mixins to specify which JS/CSS they need, request it only once
+        - Maybe have a way for CSS to be loaded in one file instead of multiple?
     - Have my routes defined in one central location without using JS strings in web.js
+    - Really actually generate a sudoku board (maybe even store it in the session so it's not lost on page refresh)
+
+Some design choices
+    - Not (yet) storing the solution. All the validation I'll do is based on the simple rules
+        of Sudoku. If there's time, I may add the ability to validate based on whether you're
+        off from the correct solution, but then that means the boards we generate need to have
+        only ONE correct solution
+
+TODO's
+    - Allow user to pick a square to validate
+    - Allow user to validate the whole board
+    - Allow a checkbox that user can enable to validate after every move
+    - Undo/redo
+
+OTHER NOTES TO INCLUDE
+    - How to run the server
