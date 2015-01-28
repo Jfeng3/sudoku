@@ -1,0 +1,4 @@
+Things I'd do better
+    - Have a template
+    - Have a way for mixins to specify which JS/CSS they need, request it only once
+    - Have my routes defined in one central location without using JS strings in web.js
