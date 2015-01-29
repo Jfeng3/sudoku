@@ -44,7 +44,7 @@ function SudokuController($, $board, rawBoard) {
             var square = $(e.target);
             var row = parseInt(square.attr('data-sudo-row'));
             var col = parseInt(square.attr('data-sudo-col'));
-            model.setVal(row, col, square.val());
+            return model.setVal(row, col, square.val());
         });
 
         return this;

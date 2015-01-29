@@ -35,12 +35,16 @@ function SudokuModel(rawBoard, onChange) {
         /* Set a value on this square, only if it is not given. If it is given,
             we call onChange to make sure subscribers know the value hasn't actually changed
 
-            We do not validate the input here */
+            The only validation that happens on inputs is making sure they are numbers */
         function setVal(val) {
-            if (!isGiven()) {
+            val = parseInt(val);
+            var oldVal = getVal();
+
+            if (!isNaN(val) && !isGiven() && oldVal !== val) {
                 _val = val;
             }
 
+            //even if we don't change the value, notify subscribers so they're in sync
             onChange(row, col, getVal());
         }
 
@@ -114,14 +118,14 @@ function SudokuModel(rawBoard, onChange) {
 
         //check col for repeats
         for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
-            if (hasVal(iRow, col) && getVal(iRow, col) === val) {
+            if (iRow !== row && hasVal(iRow, col) && getVal(iRow, col) === val) {
                 return false; //found a duplicate in the column
             }
         }
 
         //check row for repeats
         for (var iCol = 0; iCol < BOARD_SIZE; iCol++) {
-            if (hasVal(row, iCol) && getVal(row, iCol) === val) {
+            if (iCol !== col && hasVal(row, iCol) && getVal(row, iCol) === val) {
                 return false; //found a duplicate in the row
             }
         }
@@ -130,8 +134,9 @@ function SudokuModel(rawBoard, onChange) {
         var subSquareRow = Math.floor(row / NUM_SQUARES);
         var subSquareCol = Math.floor(col / NUM_SQUARES);
         for (var iRow = subSquareRow; iRow < (subSquareRow + SQUARE_SIZE); iRow++) {
+            if (iRow === row) continue;
             for (var iCol = subSquareCol; iCol < (subSquareCol + SQUARE_SIZE); iCol++) {
-                if (hasVal(iRow, iCol) && getVal(iRow, iCol) === val) {
+                if (iCol !== col && hasVal(iRow, iCol) && getVal(iRow, iCol) === val) {
                     return false;
                 }
             }
