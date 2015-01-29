@@ -108,10 +108,12 @@ function SudokuModel(rawBoard, onChange) {
     function isValid(row, col) {
         if (!hasVal(row, col)) {
             /*
-                this is debatable... it's not set, so it's not *invalid*, but it's also
-                not going to be the final value
+                Consider empty cells to be "valid", so when the user validates the board
+                they don't get a bunch of red cells
+
+                This is important to remember when validating the whole board
             */
-            return false;
+            return true;
         }
         var val = getVal(row, col);
 
@@ -151,7 +153,7 @@ function SudokuModel(rawBoard, onChange) {
     /* Is the whole board valid? */
     function isBoardValid() {
         //TODO cache this value?
-
+        
     }
 
     /* Is the whole board filled out? */

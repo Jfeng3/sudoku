@@ -10,4 +10,5 @@
 #sudokuBoard .square {
     display: table-cell;
     padding: 8px;
+    margin: 2px;
 }
