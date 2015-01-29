@@ -16,12 +16,13 @@ function SudokuModel(rawBoard) {
     */
     function SudokuSquare(val) {
 
-        val = val || 0; //convert it to a number
-        if (typeof val !== 'number' || Math.floor(val) !== val || val < 1 || val > BOARD_SIZE) {
-            throw 'Value must be an integer between 0 and ' + BOARD_SIZE + ': ' + val;
+        if (val) {
+            if (typeof val !== 'number' || Math.floor(val) !== val || val < 1 || val > BOARD_SIZE) {
+                throw 'Value must be an integer between 0 and ' + BOARD_SIZE + ': ' + val;
+            }
         }
         var _isGiven = !!val;
-        var _val = val;
+        var _val = val || 0; //undefined and null become 0
 
         /* Was this square given in the intial board? */
         function isGiven() {
@@ -144,9 +145,31 @@ function SudokuModel(rawBoard) {
 
     }
 
-    /* Helper for printing this out to the console */
+    /*
+        Helper for printing this out to the console
+        Not really worried about this function's performance since it's just for dev help
+    */
     function toString() {
-        
+        var str = "";
+
+        for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
+            if (!(iRow % SQUARE_SIZE)) {
+                str += '------------------\n'; //print line before every third row
+            }
+
+            for (var iCol = 0; iCol < BOARD_SIZE; iCol++) {
+                if (!(iCol % SQUARE_SIZE)) {
+                    str += '|'; //print line every before third column
+                } else {
+                    str += ' ';
+                }
+
+                str += getVal(iRow, iCol);
+            }
+            str += '\n';
+        }
+
+        return str;
     }
 
     return {

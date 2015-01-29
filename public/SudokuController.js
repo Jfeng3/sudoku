@@ -21,6 +21,7 @@ function SudokuController($, $board, rawBoard) {
     function start() {
         //TODO hook up some data binding stuff with the view
         console.log(_boardModel);
+        console.log(_boardModel.toString());
     }
 
     return {
