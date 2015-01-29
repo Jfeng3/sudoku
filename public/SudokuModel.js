@@ -71,7 +71,37 @@ function SudokuModel(rawBoard) {
     });
 
     function _validate(row, col) {
-        //TODO validate this square
+        if (!hasVal(row, col)) {
+            return false;
+        }
+        var val = getVal(row, col);
+
+        //check col for repeats
+        for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
+            if (hasVal(iRow, col) && getVal(iRow, col) === val) {
+                return false; //found a duplicate in the column
+            }
+        }
+
+        //check row for repeats
+        for (var iCol = 0; iCol < BOARD_SIZE; iCol++) {
+            if (hasVal(row, iCol) && getVal(row, iCol) === val) {
+                return false; //found a duplicate in the row
+            }
+        }
+
+        //check the sub-square for repeats
+        var subSquareRow = Math.floor(row / NUM_SQUARES);
+        var subSquareCol = Math.floor(col / NUM_SQUARES);
+        for (var iRow = subSquareRow; iRow < (subSquareRow + SQUARE_SIZE); iRow++) {
+            for (var iCol = subSquareCol; iCol < (subSquareCol + SQUARE_SIZE); iCol++) {
+                if (hasVal(iRow, iCol) && getVal(iRow, iCol) === val) {
+                    return false;
+                }
+            }
+        }
+
+        return true; //no repeats found
     }
 
     function _getSquare(row, col) {
@@ -89,6 +119,10 @@ function SudokuModel(rawBoard) {
         return _getSquare(row, col).getVal();
     }
 
+    function hasVal(row, col) {
+        return _getSquare(row, col).hasVal();
+    }
+
     function isValid(row, col) {
         return _getSquare(row, col).isValid();
     }
@@ -97,18 +131,24 @@ function SudokuModel(rawBoard) {
         return _getSquare(row, col).isGiven();
     }
 
-    function isValid() {
+    function isBoardValid() {
         //TODO cache this value?
 
     }
 
-    function isCompleted() {
+    function isBoardCompleted() {
         //TODO cache this value?
 
     }
 
     return {
-        getSquare: getSquare
+        setVal: setVal,
+        getVal: getVal,
+        hasVal: hasVal,
+        isValid: isValid,
+        isGiven: isGiven,
+        isBoardValid: isBoardValid,
+        isBoardCompleted: isBoardCompleted
     }
 
 }
