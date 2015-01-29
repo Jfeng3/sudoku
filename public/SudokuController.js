@@ -45,18 +45,38 @@ function SudokuController($, $board, rawBoard, $input) {
         });
 
         //set up listeners for when the value changes in the UI
-        $board.find('.square').change(function(e) {
+        var squares = $board.find('.square');
+        squares.change(function(e) {
             var square = $(e.target);
             var row = parseInt(square.attr('data-sudo-row'));
             var col = parseInt(square.attr('data-sudo-col'));
             return model.setVal(row, col, square.text());
         });
 
+        squares.keypress(function(e) {
+            var square = $(e.target);
+            square.text(String.fromCharCode(e.which));
+            square.trigger('change');
+        });
+
+        //on focus in, change which cell is "selected"
+        squares.focus(function(e) {
+            //remove the class from whichever cell has it already
+            squares.filter('.selected').removeClass('selected');
+
+            var square = $(e.target);
+            square.addClass('selected');
+        });
+
         //set up input panel handlers
         $input.find('.input').click(function(e) {
             var input = $(e.target);
             var val = input.val();
-            alert(val);
+
+            //find the selected cell, if any and put the value there
+            var selected = squares.filter('.selected')
+            selected.text(val);
+            selected.trigger('change');
         });
 
         return this;

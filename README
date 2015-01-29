@@ -13,6 +13,9 @@ Some design choices
         of Sudoku. If there's time, I may add the ability to validate based on whether you're
         off from the correct solution, but then that means the boards we generate need to have
         only ONE correct solution
+    - Input panel: scoped out typing into the box (for now) because I want it to work for mobile
+        The input panel below the board is an easy way to input a number with two taps, and it doesn't
+        cover the board like a pop-up would. And sudokuslam's solution is too small for mobile
 
 TODO's
     - Allow user to pick a square to validate

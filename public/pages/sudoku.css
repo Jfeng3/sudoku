@@ -39,6 +39,10 @@
     vertical-align: middle;
 }
 
+.sudokuBoard .square.selected {
+    background-color: lightgray;
+}
+
 .sudokuBoard .square:nth-child(3n) {
     border-right: solid 2px black;
 }
