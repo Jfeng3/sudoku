@@ -36,7 +36,6 @@ function SudokuController($, $board, rawBoard) {
         //set up the model, and subscribe to value change notifications
         model = new SudokuModel(_to2dArray(rawBoard, BOARD_SIZE), function(row, col, val) {
             //on change, update the view
-            debugger;
             _getSquare(row, col).val(val);
         });
 
@@ -45,9 +44,7 @@ function SudokuController($, $board, rawBoard) {
             var square = $(e.target);
             var row = parseInt(square.attr('data-sudo-row'));
             var col = parseInt(square.attr('data-sudo-col'));
-
-            debugger;
-            _getSquare(row, col).val(square.val());
+            model.setVal(row, col, square.val());
         });
 
         return this;

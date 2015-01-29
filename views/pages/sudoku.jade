@@ -26,6 +26,6 @@ html(lang="en-US")
             - for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
                 div(class="row row-#{iRow}")
                     - for (var iCol = 0; iCol < BOARD_SIZE; iCol++) {
-                        input(type="number").square(data-sudo-row="#{iRow}", data-sudo-col="#{iCol}")
+                        input(type="text").square(data-sudo-row="#{iRow}", data-sudo-col="#{iCol}")
                     - }
             - }

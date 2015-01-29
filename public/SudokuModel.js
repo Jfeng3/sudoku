@@ -32,20 +32,16 @@ function SudokuModel(rawBoard, onChange) {
             return _val;
         }
 
-        /* Set a value on this square, only if it is not given */
+        /* Set a value on this square, only if it is not given. If it is given,
+            we call onChange to make sure subscribers know the value hasn't actually changed
+
+            We do not validate the input here */
         function setVal(val) {
-            if (!isGiven() && _isValidInput(val)) {
-                //only actually update if it's not given and the input is valid
+            if (!isGiven()) {
                 _val = val;
             }
 
-            //in any case, fire the change handler so subscribers stay in sync
             onChange(row, col, getVal());
-        }
-
-        /** Tests whether the given user input is valid */
-        function _isValidInput(val) {
-            return (typeof val === 'number') && val >= 0 && val <= BOARD_SIZE;
         }
 
         /* Is there a value set on this square? */
@@ -75,10 +71,7 @@ function SudokuModel(rawBoard, onChange) {
 
     /* Sets a value on a square */
     function setVal(row, col, val) {
-        var sq = _getSquare(row, col);
-        sq.setVal(val);
-        sq.setIsValid(_validate(row, col));
-        return sq.isValid();
+        _getSquare(row, col).setVal(val);
     }
 
     /* Gets the value of a square */
@@ -107,9 +100,17 @@ function SudokuModel(rawBoard, onChange) {
     */
     function isValid(row, col) {
         if (!hasVal(row, col)) {
+            /*
+                this is debatable... it's not set, so it's not *invalid*, but it's also
+                not going to be the final value
+            */
             return false;
         }
         var val = getVal(row, col);
+
+        if ((typeof val !== 'number') || val < 0 || val > BOARD_SIZE) {
+            return false;
+        }
 
         //check col for repeats
         for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
