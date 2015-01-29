@@ -19,7 +19,7 @@ function SudokuModel(rawBoard, onChange) {
     function SudokuSquare(row, col, val) {
 
         var _val;
-        setVal(val || 0); //convert undefined and null to 0
+        setVal(val);
         var _isGiven = !!val; //this has to be after the initial setVal()
 
         /* Was this square given in the intial board? */
@@ -37,7 +37,10 @@ function SudokuModel(rawBoard, onChange) {
 
             The only validation that happens on inputs is making sure they are numbers */
         function setVal(val) {
-            val = parseInt(val);
+            if (typeof val === 'string') {
+                val = val.trim();
+            }
+            val = parseInt(val || 0); //convert undefined and null to 0
             var oldVal = getVal();
 
             if (!isNaN(val) && !isGiven() && oldVal !== val) {
