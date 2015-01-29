@@ -23,4 +23,10 @@ html(lang="en-US")
         h1 Sudoku by Kapil Easwar
 
         div#sudokuBoard
-            //- TODO continue here
+            - for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
+                div(class="row row-#{iRow}")
+                    - for (var iCol = 0; iCol < BOARD_SIZE; iCol++) {
+                        div(class="square square-row-#{iRow} square-col-#{iCol}")
+                            | test
+                    - }
+            - }

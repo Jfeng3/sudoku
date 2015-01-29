@@ -1,0 +1,13 @@
+#sudokuBoard {
+    display: table;
+    border: solid 1px black;
+}
+
+#sudokuBoard .row {
+    display: table-row;
+}
+
+#sudokuBoard .square {
+    display: table-cell;
+    padding: 8px;
+}
