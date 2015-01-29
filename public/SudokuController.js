@@ -24,7 +24,11 @@ function SudokuController($, $board, rawBoard) {
 
     /** Helper that gets the JQuery object pointing at the requested square */
     function _getSquare(row, col) {
-        return $board.find('[data-sudo-row="' + row + '"][data-sudo-col="' + col + '"]');
+        var square = $board.find('[data-sudo-row="' + row + '"][data-sudo-col="' + col + '"]');
+        if (!square.length) {
+            throw 'Could not locate square ' + row + ', ' + col;
+        }
+        return square;
     }
 
     /** Getter for the model to help with debugging */

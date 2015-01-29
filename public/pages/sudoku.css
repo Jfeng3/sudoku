@@ -1,14 +1,22 @@
-#sudokuBoard {
+.table {
     display: table;
-    border: solid 1px black;
+    border-collapse: collapse;
 }
 
-#sudokuBoard .row {
+.cluster-outer {
+    display: table-cell;
+    border: solid 2px black;
+}
+
+.row {
     display: table-row;
 }
 
-#sudokuBoard .square {
+.cell {
     display: table-cell;
-    padding: 8px;
+}
+
+.square-outer {
     margin: 2px;
+    padding: 8px;
 }

@@ -153,7 +153,7 @@ function SudokuModel(rawBoard, onChange) {
     /* Is the whole board valid? */
     function isBoardValid() {
         //TODO cache this value?
-        
+
     }
 
     /* Is the whole board filled out? */
