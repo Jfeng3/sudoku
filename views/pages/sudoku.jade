@@ -11,7 +11,9 @@ html(lang="en-US")
         //- intialize the controller
         script(type="text/javascript").
             $(document).ready(function() {
-                window.SUDO_CONTROLLER = new SudokuController($, $('#sudokuBoard'), [#{GENERATED_BOARD}]).start();
+                window.SUDO_CONTROLLER = new SudokuController(
+                    $, $('#sudokuBoard'), [#{GENERATED_BOARD}], $('#inputPanel')
+                ).start();
             });
 
         //- stylesheets
@@ -26,6 +28,11 @@ html(lang="en-US")
             - for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
                 div.row
                     - for (var iCol = 0; iCol < BOARD_SIZE; iCol++) {
-                        div.square(data-sudo-row="#{iRow}", data-sudo-col="#{iCol}")
+                        div.square(tabindex="0", data-sudo-row="#{iRow}", data-sudo-col="#{iCol}")
                     - }
+            - }
+
+        div#inputPanel.inputPanel
+            - for (var iVal = 1; iVal <= BOARD_SIZE; iVal++) {
+                button.input(value="#{iVal}") #{iVal}
             - }

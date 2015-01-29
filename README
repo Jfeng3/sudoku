@@ -6,6 +6,7 @@ Things I'd do better
         - Maybe have a way for CSS to be loaded in one file instead of multiple?
     - Have my routes defined in one central location without using JS strings in web.js
     - Really actually generate a sudoku board (maybe even store it in the session so it's not lost on page refresh)
+    - Make it more keyboard accessible: up/down arrow keys should move between cells
 
 Some design choices
     - Not (yet) storing the solution. All the validation I'll do is based on the simple rules

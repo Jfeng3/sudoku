@@ -1,13 +1,19 @@
 /** TODO use LESS for CSS variables */
 
-#sudokuBoard {
+#sudokuBoard,
+#inputPanel {
     width: 60vmin;
-    height: 60vmin;
     min-width: 320px;
-    min-height: 320px;
 }
 
-.sudokuBoard {
+#sudokuBoard {
+    height: 60vmin;
+    min-height: 320px;
+    margin-bottom: 12px;
+}
+
+.sudokuBoard,
+.inputPanel {
     width: 100%;
     table-layout: fixed;
     display: table;
@@ -23,7 +29,8 @@
     border-bottom: solid 2px black;
 }
 
-.sudokuBoard .square {
+.sudokuBoard .square,
+.inputPanel .input {
     display: table-cell;
     margin: 2px;
     padding: 8px;
