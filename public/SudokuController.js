@@ -12,6 +12,8 @@ function SudokuController($, $board, rawBoard) {
     var NUM_SQUARES = 3;
     var BOARD_SIZE = SQUARE_SIZE * NUM_SQUARES;
 
+    var model;
+
     function _to2dArray(arr, splitSize) {
         var array2d = [];
         while (arr.length) {
@@ -22,17 +24,37 @@ function SudokuController($, $board, rawBoard) {
 
     /** Helper that gets the JQuery object pointing at the requested square */
     function _getSquare(row, col) {
-        return $board.find('.square-row-' + row + '.square-col-' + col);
+        return $board.find('[data-sudo-row="' + row + '"][data-sudo-col="' + col + '"]');
+    }
+
+    /** Getter for the model to help with debugging */
+    function getModel() {
+        return model;
     }
 
     function start() {
         //set up the model, and subscribe to value change notifications
-        var model = new SudokuModel(_to2dArray(rawBoard, BOARD_SIZE), function(row, col, val) {
-            _getSquare(row, col).text(val);
+        model = new SudokuModel(_to2dArray(rawBoard, BOARD_SIZE), function(row, col, val) {
+            //on change, update the view
+            debugger;
+            _getSquare(row, col).val(val);
         });
+
+        //setup listeners for when the value changes in the UI
+        $board.find('.square').bind('change', function(e) {
+            var square = $(e.target);
+            var row = parseInt(square.attr('data-sudo-row'));
+            var col = parseInt(square.attr('data-sudo-col'));
+
+            debugger;
+            _getSquare(row, col).val(square.val());
+        });
+
+        return this;
     }
 
     return {
+        getModel: getModel,
         start: start
     }
 }

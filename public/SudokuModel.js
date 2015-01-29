@@ -18,11 +18,6 @@ function SudokuModel(rawBoard, onChange) {
     */
     function SudokuSquare(row, col, val) {
 
-        if (val) {
-            if (typeof val !== 'number' || Math.floor(val) !== val || val < 1 || val > BOARD_SIZE) {
-                throw 'Value must be an integer between 0 and ' + BOARD_SIZE + ': ' + val;
-            }
-        }
         var _val;
         setVal(val || 0); //convert undefined and null to 0
         var _isGiven = !!val; //this has to be after the initial setVal()
@@ -39,11 +34,18 @@ function SudokuModel(rawBoard, onChange) {
 
         /* Set a value on this square, only if it is not given */
         function setVal(val) {
-            if (isGiven()) {
-                throw 'Cannot set values on given square';
+            if (!isGiven() && _isValidInput(val)) {
+                //only actually update if it's not given and the input is valid
+                _val = val;
             }
-            _val = val;
+
+            //in any case, fire the change handler so subscribers stay in sync
             onChange(row, col, getVal());
+        }
+
+        /** Tests whether the given user input is valid */
+        function _isValidInput(val) {
+            return (typeof val === 'number') && val >= 0 && val <= BOARD_SIZE;
         }
 
         /* Is there a value set on this square? */
