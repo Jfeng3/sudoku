@@ -1,4 +1,5 @@
 Things I'd do better
+    - Big thing: not have to duplicate constants (board size, etc.) and CSS classes (duplicated in JS, HTML and CSS)
     - Specify the port to listen to based on environment var (if you wanted to host on Heroku you'd do this)
     - Have a template
     - Have a way for mixins to specify which JS/CSS they need, request it only once

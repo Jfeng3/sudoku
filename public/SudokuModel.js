@@ -22,20 +22,18 @@ function SudokuModel(rawBoard) {
         }
         var _isGiven = !!val;
         var _val = val;
-        var _isValid = _isGiven; //assume all given values are valid
 
-        function isValid() {
-            return _isValid;
-        }
-
+        /* Was this square given in the intial board? */
         function isGiven() {
             return _isGiven;
         }
 
+        /* Get the value currently set on this square */
         function getVal() {
             return _val;
         }
 
+        /* Set a value on this square, only if it is not given */
         function setVal(val) {
             if (isGiven()) {
                 throw 'Cannot set values on given square';
@@ -43,19 +41,12 @@ function SudokuModel(rawBoard) {
             _val = val;
         }
 
-        function setIsValid(isValid) {
-            if (isGiven()) {
-                throw 'Cannot set values on given square';
-            }
-            _isValid = isValid;
-        }
-
+        /* Is there a value set on this square? */
         function hasVal() {
             return !!getVal(); //null, undefined, or 0 can all be non-values
         }
 
         return {
-            isValid: isValid,
             isGiven: isGiven,
             getVal: getVal,
             setVal: setVal,
@@ -70,7 +61,44 @@ function SudokuModel(rawBoard) {
         });
     });
 
-    function _validate(row, col) {
+    /* Private helper to get a square at the given index */
+    function _getSquare(row, col) {
+        return board[row][col];
+    }
+
+    /* Sets a value on a square */
+    function setVal(row, col, val) {
+        var sq = _getSquare(row, col);
+        sq.setVal(val);
+        sq.setIsValid(_validate(row, col));
+        return sq.isValid();
+    }
+
+    /* Gets the value of a square */
+    function getVal(row, col) {
+        return _getSquare(row, col).getVal();
+    }
+
+    /* Determines if the square has a value */
+    function hasVal(row, col) {
+        return _getSquare(row, col).hasVal();
+    }
+
+    /* Was the square given in the initial board? */
+    function isGiven(row, col) {
+        return _getSquare(row, col).isGiven();
+    }
+
+    /*
+        On-demand validation of a single square
+        It doesn't check against the solution, just checks that there are no
+            repeats in the row, column or sub-square
+
+        We don't cache these values on the square because every value
+        added/removed could affect the validity of other squares in its row,
+        column and square. So we just validate whenever the user wants it
+    */
+    function isValid(row, col) {
         if (!hasVal(row, col)) {
             return false;
         }
@@ -104,41 +132,21 @@ function SudokuModel(rawBoard) {
         return true; //no repeats found
     }
 
-    function _getSquare(row, col) {
-        return board[row][col];
-    }
-
-    function setVal(row, col, val) {
-        var sq = _getSquare(row, col);
-        sq.setVal(val);
-        sq.setIsValid(_validate(row, col));
-        return sq.isValid();
-    }
-
-    function getVal(row, col) {
-        return _getSquare(row, col).getVal();
-    }
-
-    function hasVal(row, col) {
-        return _getSquare(row, col).hasVal();
-    }
-
-    function isValid(row, col) {
-        return _getSquare(row, col).isValid();
-    }
-
-    function isGiven(row, col) {
-        return _getSquare(row, col).isGiven();
-    }
-
+    /* Is the whole board valid? */
     function isBoardValid() {
         //TODO cache this value?
 
     }
 
+    /* Is the whole board filled out? */
     function isBoardCompleted() {
         //TODO cache this value?
 
+    }
+
+    /* Helper for printing this out to the console */
+    function toString() {
+        
     }
 
     return {
@@ -148,7 +156,8 @@ function SudokuModel(rawBoard) {
         isValid: isValid,
         isGiven: isGiven,
         isBoardValid: isBoardValid,
-        isBoardCompleted: isBoardCompleted
+        isBoardCompleted: isBoardCompleted,
+        toString: toString
     }
 
 }
