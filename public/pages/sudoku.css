@@ -1,22 +1,37 @@
-.table {
-    display: table;
-    border-collapse: collapse;
+/** TODO use LESS for CSS variables */
+
+#sudokuBoard {
+    width: 60vmin;
+    height: 60vmin;
+    min-width: 320px;
+    min-height: 320px;
 }
 
-.cluster-outer {
-    display: table-cell;
+.sudokuBoard {
+    width: 100%;
+    table-layout: fixed;
+    display: table;
+    border-collapse: collapse;
     border: solid 2px black;
 }
 
-.row {
+.sudokuBoard .row {
     display: table-row;
 }
 
-.cell {
-    display: table-cell;
+.sudokuBoard .row:nth-child(3n) {
+    border-bottom: solid 2px black;
 }
 
-.square-outer {
+.sudokuBoard .square {
+    display: table-cell;
     margin: 2px;
     padding: 8px;
+    border: solid 1px black;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.sudokuBoard .square:nth-child(3n) {
+    border-right: solid 2px black;
 }

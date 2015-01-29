@@ -18,24 +18,14 @@ html(lang="en-US")
         link(href="/public/pages/sudoku.css", rel="stylesheet", type="text/css")
 
         //- local Jade vars
-        - var NUM_CLUSTERS = 3;
-        - var CLUSTER_SIZE = 3;
         - var BOARD_SIZE = 9;
     body
         h1 Sudoku by Kapil Easwar
 
-        div#sudokuBoard.table
-            - for (var iClustRow = 0; iClustRow < NUM_CLUSTERS; iClustRow++) {
+        div#sudokuBoard.sudokuBoard
+            - for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
                 div.row
-                    - for (var iClustCol = 0; iClustCol < NUM_CLUSTERS; iClustCol++) {
-                        div.cluster-outer
-                            div.table
-                                - for (var iSquareRow = 0; iSquareRow < CLUSTER_SIZE; iSquareRow++) {
-                                    div.row
-                                        - for (var iSquareCol = 0; iSquareCol < CLUSTER_SIZE; iSquareCol++) {
-                                            div.cell.square-outer
-                                                input(type="text").square(data-sudo-row="#{3*iClustRow + iSquareRow}", data-sudo-col="#{3*iClustCol + iSquareCol}")
-                                        - }
-                                - }
+                    - for (var iCol = 0; iCol < BOARD_SIZE; iCol++) {
+                        div.square(data-sudo-row="#{iRow}", data-sudo-col="#{iCol}")
                     - }
             - }

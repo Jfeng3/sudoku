@@ -40,7 +40,7 @@ function SudokuController($, $board, rawBoard) {
         //set up the model, and subscribe to value change notifications
         model = new SudokuModel(_to2dArray(rawBoard, BOARD_SIZE), function(row, col, val) {
             //on change, update the view. 0's convert to empty string
-            _getSquare(row, col).val(val || '');
+            _getSquare(row, col).text(val || '');
         });
 
         //setup listeners for when the value changes in the UI
