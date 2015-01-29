@@ -2,8 +2,10 @@
     This is the model for a Sudoku board
 
     rawBoard - the intial board the user should solve, represented as a 2D array
+    onChange - callback when a value changes, in the form:
+                function(row, col, val) {}
 */
-function SudokuModel(rawBoard) {
+function SudokuModel(rawBoard, onChange) {
 
     /* TODO make good global constant object that's shared between client and server */
     var SQUARE_SIZE = 3;
@@ -14,15 +16,16 @@ function SudokuModel(rawBoard) {
         Model of each individual square. Each square keeps track of
         whether it is given, and the value set on it
     */
-    function SudokuSquare(val) {
+    function SudokuSquare(row, col, val) {
 
         if (val) {
             if (typeof val !== 'number' || Math.floor(val) !== val || val < 1 || val > BOARD_SIZE) {
                 throw 'Value must be an integer between 0 and ' + BOARD_SIZE + ': ' + val;
             }
         }
-        var _isGiven = !!val;
-        var _val = val || 0; //undefined and null become 0
+        var _val;
+        setVal(val || 0); //convert undefined and null to 0
+        var _isGiven = !!val; //this has to be after the initial setVal()
 
         /* Was this square given in the intial board? */
         function isGiven() {
@@ -40,6 +43,7 @@ function SudokuModel(rawBoard) {
                 throw 'Cannot set values on given square';
             }
             _val = val;
+            onChange(row, col, getVal());
         }
 
         /* Is there a value set on this square? */
@@ -56,9 +60,9 @@ function SudokuModel(rawBoard) {
     }
     /* End SudokuSquare model */
 
-    var board = rawBoard.map(function(rawRow) {
-        return rawRow.map(function(rawVal) {
-            return new SudokuSquare(rawVal);
+    var board = rawBoard.map(function(rawRow, row) {
+        return rawRow.map(function(rawVal, col) {
+            return new SudokuSquare(row, col, rawVal);
         });
     });
 
