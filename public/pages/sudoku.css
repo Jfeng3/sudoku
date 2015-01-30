@@ -14,14 +14,23 @@
 
 .sudokuBoard,
 .inputPanel {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    cursor: default;
+
     width: 100%;
     table-layout: fixed;
     display: table;
     border-collapse: collapse;
+}
+
+.sudokuBoard {
     border: solid 2px black;
 }
 
-.sudokuBoard .row {
+.row {
     display: table-row;
 }
 
@@ -30,13 +39,16 @@
 }
 
 .sudokuBoard .square,
-.inputPanel .input {
+.inputPanel .input-outer {
     display: table-cell;
     margin: 2px;
     padding: 8px;
-    border: solid 1px black;
     text-align: center;
     vertical-align: middle;
+}
+
+.sudokuBoard .square {
+    border: solid 1px black;
 }
 
 .sudokuBoard .square.selected {
@@ -45,4 +57,14 @@
 
 .sudokuBoard .square:nth-child(3n) {
     border-right: solid 2px black;
+}
+
+.inputPanel .input-outer {
+    padding: 2px;
+}
+
+.inputPanel .input {
+    border: solid 1px black;
+    border-radius: 25%;
+    padding: 4px;
 }

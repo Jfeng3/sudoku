@@ -71,7 +71,7 @@ function SudokuController($, $board, rawBoard, $input) {
         //set up input panel handlers
         $input.find('.input').click(function(e) {
             var input = $(e.target);
-            var val = input.val();
+            var val = input.text();
 
             //find the selected cell, if any and put the value there
             var selected = squares.filter('.selected')

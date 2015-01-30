@@ -33,6 +33,12 @@ html(lang="en-US")
             - }
 
         div#inputPanel.inputPanel
-            - for (var iVal = 1; iVal <= BOARD_SIZE; iVal++) {
-                button.input(value="#{iVal}") #{iVal}
-            - }
+            div.row
+                - for (var iVal = 1; iVal <= BOARD_SIZE; iVal++) {
+                    div.input-outer
+                        div.input(value="#{iVal}") #{iVal}
+                - }
+            div.row
+                div.input-outer Check
+                div.input-outer
+                div.input-outer Clear
