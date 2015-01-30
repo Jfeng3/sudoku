@@ -8,8 +8,8 @@
 
 ## Technical design
 ### Server: web.js
-    The server is very thin. It simply responds to requests to '/' and returns a page that
-    has the hardcoded Sudoku board
+The server is very thin. It simply responds to requests to '/' and returns a page that
+has the hardcoded Sudoku board
 
 ### Client
 The client side uses an MVC pattern as much as possible
@@ -35,11 +35,11 @@ The styling uses LESS to compile the CSS and use some variables for values that 
         keep the UI in sync when the user tries to change a given square
 
 - *VIEW: sudoku.jade and sudoku.less*
-        The Sudoku board is a simple CSS table with borders. The input panel is an array of number, which when clicked
+    The Sudoku board is a simple CSS table with borders. The input panel is an array of number, which when clicked
         will put that number in the currently-selected square (shaded with gray). You can also click a square and
         type a number directly into it (this is for ease of entry on computer, while the buttons are more for mobile)
 
-        This input method was chosen because, unlike a pop-up, it doesn't hide the board as you're entering a value. The
+    This input method was chosen because, unlike a pop-up, it doesn't hide the board as you're entering a value. The
         keyboard input method is more for keyboard-based inputs
 
 ## Things I would improve
