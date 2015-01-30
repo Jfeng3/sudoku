@@ -79,6 +79,18 @@ function SudokuController($, $board, rawBoard, $input) {
             selected.trigger('change');
         });
 
+        //set up handler for the clear button
+        $input.find('.clear').click(function(e) {
+            var selected = squares.filter('.selected');
+            selected.text('');
+            selected.trigger('change');
+        });
+
+        //set up handler for validate button
+        $input.find('.validate').click(function(e) {
+
+        });
+
         return this;
     }
 
