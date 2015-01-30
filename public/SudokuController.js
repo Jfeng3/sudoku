@@ -38,22 +38,22 @@ function SudokuController($, $board, rawBoard, $input) {
     }
 
     function start() {
+        var squares = $board.find('.square');
+
         //set up the model, and subscribe to value change notifications
         model = new SudokuModel(_to2dArray(rawBoard, BOARD_SIZE), function(model, row, col, val) {
+            //on any change, clear all validation
+            squares.removeClass('invalid');
+
             //on change, update the view. 0's convert to empty string
             var square = _getSquare(row, col);
             square.text(val || '');
 
             //mark the given squares
-            if (model.isGiven(row, col)) {
-                square.addClass('given');
-            } else {
-                square.removeClass('given');
-            }
+            square.toggleClass('given', model.isGiven(row, col));
         });
 
         //set up listeners for when the value changes in the UI
-        var squares = $board.find('.square');
         squares.change(function(e) {
             var square = $(e.target);
             var row = parseInt(square.attr('data-sudo-row'));
@@ -97,7 +97,19 @@ function SudokuController($, $board, rawBoard, $input) {
 
         //set up handler for validate button
         $input.find('.validate').click(function(e) {
-            //TODO validation
+            /*
+                This method is not super efficient because it goes through all
+                squares, and for each square goes through other squares. But if we want
+                to validate *which* squares are invalid (not just the board as a whole)
+                then we probably need to do this
+            */
+
+            for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
+                for (var iCol = 0; iCol < BOARD_SIZE; iCol++) {
+                    //add the invalid class to anything that's invalid
+                    _getSquare(iRow, iCol).toggleClass('invalid', !model.isValid(iRow, iCol));
+                }
+            }
         });
 
         model.init();

@@ -52,6 +52,7 @@ body {
 }
 
 .sudokuBoard .square {
+    font-weight: lighter;
     border: solid 1px black;
 }
 
@@ -59,8 +60,8 @@ body {
     font-weight: bolder;
 }
 
-.sudokuBoard .square:not(.given) {
-    font-weight: lighter;
+.sudokuBoard .square.invalid {
+    border: solid 2px red;
 }
 
 .sudokuBoard .square.selected {

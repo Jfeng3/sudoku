@@ -18,6 +18,8 @@ Some design choices
     - Scoping: not hiding the inputPanel when no cell is focused
 
 TODO's
+    - Fix up all the object-oriented stuff
+    - Fix the validation function
     - Allow user to pick a square to validate
     - Allow user to validate the whole board
     - Allow a checkbox that user can enable to validate after every move
