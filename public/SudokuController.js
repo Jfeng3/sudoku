@@ -78,7 +78,7 @@ function SudokuController($, $board, rawBoard, $input) {
         });
 
         //set up input panel handlers
-        $input.find('.input').click(function(e) {
+        $input.find('.input-number').click(function(e) {
             var input = $(e.target);
             var val = input.text();
 

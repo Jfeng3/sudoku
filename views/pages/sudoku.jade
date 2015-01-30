@@ -43,7 +43,7 @@ html(lang="en-US")
             div.inputPanel
                 - for (var iVal = 1; iVal <= BOARD_SIZE; iVal++) {
                     div.input-outer
-                        div.input(value="#{iVal}") #{iVal}
+                        div.input.input-number(value="#{iVal}") #{iVal}
                 - }
 
             div.inputPanel

@@ -63,6 +63,7 @@ function SudokuModel(rawBoard, onChange) {
 
     var numFilled; //the number of squares filled
     var board;
+    var validities; //cache of the validity of each square
 
     function init() {
         var model = this;
@@ -71,6 +72,7 @@ function SudokuModel(rawBoard, onChange) {
                 return new SudokuSquare(row, col, rawVal);
             });
         });
+        _clearValidities();
 
         //fire change handlers, calculate how many are filled
         numFilled = 0;
@@ -79,9 +81,26 @@ function SudokuModel(rawBoard, onChange) {
                 if (this.hasVal(iRow, iCol)) {
                     numFilled++;
                 }
+                
+                /*
+                    setVal() will call _clearValidities() every time, but
+                    oh well. If init is a little inefficient, it's ok. It's only going
+                    to be used once per page load, or even if we support getting a new board it won't
+                    be the common an operation
+                */
                 this.setVal(iRow, iCol, getVal(iRow, iCol));
             }
         }
+    }
+    
+    /** Clears the validity cache */
+    function _clearValidities() {
+        //use the board.map so we know the cache is the same size array
+        validities = board.map(function(rawRow, row) {
+            return rawRow.map(function(rawVal, col) {
+                return null; //clear the whole cache
+            });
+        });
     }
 
     /* Private helper to get a square at the given index */
@@ -99,6 +118,10 @@ function SudokuModel(rawBoard, onChange) {
         //increment/decrement the number of filled squares
         var filledChange = (hasVal - hadVal);
         numFilled += filledChange;
+        
+        //clear the validity cache
+        //  we could maybe be smarter about this and only do it when the value *actually* changes
+        _clearValidities();
 
         //even if we don't change the value, notify subscribers so they're in sync
         onChange(this, row, col, square.getVal());
@@ -137,8 +160,23 @@ function SudokuModel(rawBoard, onChange) {
             If the board has N squares total, each row/column/sub-square has sqrt(N) squares. For any particular input
             it will go through one row, column and sub-square. So it is O(sqrt(N)), or in terms of my variables
             O(BOARD_SIZE)
+        
+        The results of this method are cached, and the cache is cleared for all squares when there is any single change
+        to the board
     */
     function isValid(row, col) {
+        var cache = validities[row][col];
+        
+        if (cache === null) { //must do a === for null, since these are booleans
+            cache = _isValidNoCache(row,col); //calculate the value and store it
+            validities[row][col] = cache;
+        }
+        
+        return cache;
+    }
+    
+    /** The uncached version of isValid(row,col) */
+    function _isValidNoCache(row, col) {
         if (!hasVal(row, col)) {
             /*
                 Consider empty cells to be "valid", so when the user validates the board
@@ -191,6 +229,9 @@ function SudokuModel(rawBoard, onChange) {
         
         If there are N squares in the board, this method calls isValid(row,col) on each one, so this fucntion is
         O(N * sqrt(N)), or in terms of my variables, O(BOARD_SIZE^3). Use it sparingly
+        
+        The results of each individual square are cached, so subsequent calls to this won't be a huge hit. But any
+        change to the board will invalidate the cache
     */
     function isBoardValid() {
         for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
