@@ -1,7 +1,7 @@
 # Sudoku by Kapil Easwar
 
 ## How to run
-(0. Need to install node and npm)
+0. (Need to install node and npm)
 1. Clone the git repo (see instructions in Github)
 2. cd sudoku (into the repo)
 3. install dependencies with 'npm install', to make sure this doesn't fail
