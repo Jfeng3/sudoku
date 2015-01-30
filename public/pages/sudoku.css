@@ -3,13 +3,21 @@ body {
 }
 
 #sudokuBoard,
-#inputPanel {
-    width: 60vmin;
+#inputPanel,
+.title {
+    width: 70vmin;
     min-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title {
+    font-size: 14pt;
+    text-align: center;
 }
 
 #sudokuBoard {
-    height: 60vmin;
+    height: 70vmin;
     min-height: 320px;
     margin-bottom: 12px;
 }
@@ -26,10 +34,12 @@ body {
     table-layout: fixed;
     display: table;
     border-collapse: collapse;
+
+    font-size: 1.5rem;
 }
 
 .sudokuBoard {
-    border: solid 2px black;
+    border: solid 3px black;
 }
 
 .row {
@@ -37,29 +47,29 @@ body {
 }
 
 .sudokuBoard .row:nth-child(3n) {
-    border-bottom: solid 2px black;
+    border-bottom: solid 3px black;
 }
 
 .sudokuBoard .square,
 .inputPanel .input-outer {
     display: table-cell;
-    margin: 2px;
+    margin: 3px;
     padding: 8px;
     text-align: center;
     vertical-align: middle;
 }
 
 .sudokuBoard .square {
-    font-weight: lighter;
+    font-weight: 200;
     border: solid 1px black;
 }
 
 .sudokuBoard .square.given {
-    font-weight: bolder;
+    font-weight: 900;
 }
 
 .sudokuBoard .square.invalid {
-    border: solid 2px red;
+    border: solid 3px red;
 }
 
 .sudokuBoard .square.selected,
@@ -68,15 +78,15 @@ body {
 }
 
 .sudokuBoard .square:nth-child(3n) {
-    border-right: solid 2px black;
+    border-right: solid 3px black;
 }
 
 .inputPanel .input-outer {
-    padding: 2px;
+    padding: 3px;
 }
 
 .inputPanel .input {
     border: solid 1px black;
     border-radius: 20px;
-    padding: 4px;
+    padding: 12px;
 }

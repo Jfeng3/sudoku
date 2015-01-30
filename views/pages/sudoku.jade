@@ -22,7 +22,7 @@ html(lang="en-US")
         //- local Jade vars
         - var BOARD_SIZE = 9;
     body
-        h1 Sudoku by Kapil Easwar
+        h1.title Sudoku by Kapil Easwar
 
         div#sudokuBoard.sudokuBoard
             - for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
@@ -34,11 +34,10 @@ html(lang="en-US")
 
         div#inputPanel
             div.inputPanel
-                div.row
-                    - for (var iVal = 1; iVal <= BOARD_SIZE; iVal++) {
-                        div.input-outer
-                            div.input(value="#{iVal}") #{iVal}
-                    - }
+                - for (var iVal = 1; iVal <= BOARD_SIZE; iVal++) {
+                    div.input-outer
+                        div.input(value="#{iVal}") #{iVal}
+                - }
 
             div.inputPanel
                 div.input-outer
