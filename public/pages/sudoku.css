@@ -1,5 +1,9 @@
 /** TODO use LESS for CSS variables */
 
+body {
+    font-family: sans-serif;
+}
+
 #sudokuBoard,
 #inputPanel {
     width: 60vmin;
@@ -52,7 +56,11 @@
 }
 
 .sudokuBoard .square.given {
-    font-weight: bold;
+    font-weight: bolder;
+}
+
+.sudokuBoard .square:not(.given) {
+    font-weight: lighter;
 }
 
 .sudokuBoard .square.selected {
