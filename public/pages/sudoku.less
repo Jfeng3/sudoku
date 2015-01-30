@@ -7,22 +7,23 @@
 @fontWeightThin: 100;
 @fontWeightThick: 900;
 
-@boardSize: 70vmin;
+@boardSize: 65vmin;
 @minBoardSize: 320px;
 
 @bgColorLight: lightgray;
 @borderColor: black;
-@borderColorError: red;
+@colorSuccess: green;
+@colorError: red;
 
 @borderWidthThin: 1px;
 @borderWidthThick: 3px;
 @borderThin: solid @borderWidthThin @borderColor;
 @borderThick: solid @borderWidthThick @borderColor;
-@borderError: solid @borderWidthThick @borderColorError;
+@borderError: solid @borderWidthThick @colorError;
 
 @spacingSmall: 3px;
-@spacingMedium: 8px;
-@spacingLarge: 14px;
+@spacingMedium: 6px;
+@spacingLarge: 12px;
 
 /*
     REUSABLE CLASSES
@@ -75,6 +76,15 @@ body {
 .title {
     .responsiveWidth;
     .center
+}
+
+.output {
+    color: @colorSuccess;
+    font-size: @fontSizeLarge;
+}
+
+.output.error {
+    color: @colorError;
 }
 
 .title {

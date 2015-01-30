@@ -36,14 +36,16 @@ function SudokuController($, $board, rawBoard, $input) {
     function getModel() {
         return model;
     }
-
+    
     function start() {
         var squares = $board.find('.square');
+        var output = $input.find('.output'); //a little confusing, but the output text is inside the input panel
 
         //set up the model, and subscribe to value change notifications
         model = new SudokuModel(_to2dArray(rawBoard, BOARD_SIZE), function(model, row, col, val) {
-            //on any change, clear all validation
+            //on any change, clear all validation and hide the output
             squares.removeClass('invalid');
+            output.hide();
 
             //on change, update the view. 0's convert to empty string
             var square = _getSquare(row, col);
@@ -113,6 +115,12 @@ function SudokuController($, $board, rawBoard, $input) {
                     //add the invalid class to anything that's invalid
                     _getSquare(iRow, iCol).toggleClass('invalid', !model.isValid(iRow, iCol));
                 }
+            }
+            
+            if (model.isBoardValid()) { //not inefficient because we just calculated for each square, so this will be cached
+                output.text('No visible errors!').removeClass('error').show();
+            } else {
+                output.text('You\'ve made some mistakes :(').addClass('error').show();
             }
         });
 
