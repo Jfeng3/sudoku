@@ -38,7 +38,6 @@ TODO's
     - Display message when user validates and there are no problems
     - Display message when board is finished
     - Add hover text for buttons to explain what they do
-    - Use LESS for CSS
 
 OTHER NOTES TO INCLUDE
     - How to run the server

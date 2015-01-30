@@ -1,8 +1,10 @@
 var express = require('express');
 var logfmt = require('logfmt');
+var lessMiddleware = require('less-middleware');
 
 var app = express();
 app.use(logfmt.requestLogger());
+app.use('/public', lessMiddleware(__dirname + '/public'));
 app.use('/public', express.static(__dirname + '/public'));
 
 //top level "generates" a board and opens up the client, initialized with this board

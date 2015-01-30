@@ -1,0 +1,146 @@
+/*
+    CONSTANTS
+*/
+@fontFamily: sans-serif;
+@fontSizeSmall: 14pt;
+@fontSizeLarge: 20pt;
+@fontWeightThin: 100;
+@fontWeightThick: 900;
+
+@boardSize: 70vmin;
+@minBoardSize: 320px;
+
+@bgColorLight: lightgray;
+@borderColor: black;
+@borderColorError: red;
+
+@borderWidthThin: 1px;
+@borderWidthThick: 3px;
+@borderThin: solid @borderWidthThin @borderColor;
+@borderThick: solid @borderWidthThick @borderColor;
+@borderError: solid @borderWidthThin @borderColorError;
+
+@spacingSmall: 3px;
+@spacingMedium: 8px;
+@spacingLarge: 14px;
+
+/*
+    REUSABLE CLASSES
+*/
+.no-select {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    cursor: default;
+}
+
+.table {
+    width: 100%;
+    table-layout: fixed;
+    display: table;
+    border-collapse: collapse;
+}
+
+.table-cell {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.responsiveWidth {
+    width: @boardSize;
+    min-width: @minBoardSize;
+}
+
+.responsiveHeight {
+    height: @boardSize;
+    min-height: @minBoardSize;
+}
+
+/*
+    STUFF ON THE PAGE
+*/
+body {
+    font-family: @fontFamily;
+}
+
+#sudokuBoard,
+#inputPanel,
+.title {
+    .responsiveWidth;
+    .center
+}
+
+.title {
+    font-size: @fontSizeSmall;
+    text-align: center;
+}
+
+#sudokuBoard {
+    .responsiveHeight;
+    margin-bottom: @spacingLarge;
+}
+
+.sudokuBoard,
+.inputPanel {
+    .no-select;
+    .table;
+    font-size: @fontSizeLarge;
+}
+
+.sudokuBoard {
+    border: @borderThick;
+}
+
+.row {
+    display: table-row;
+}
+
+.sudokuBoard .row:nth-child(3n) {
+    border-bottom: @borderThick;
+}
+
+.sudokuBoard .square,
+.inputPanel .input-outer {
+    .table-cell;
+    margin: @spacingSmall;
+    padding: @spacingMedium;
+}
+
+.sudokuBoard .square {
+    font-weight: @fontWeightThin;
+    border: @borderThin;
+}
+
+.sudokuBoard .square.given {
+    font-weight: @fontWeightThick;
+}
+
+.sudokuBoard .square.invalid {
+    border: @borderThick;
+}
+
+.sudokuBoard .square.selected,
+.inputPanel .input:active {
+    background-color: @bgColorLight;
+}
+
+.sudokuBoard .square:nth-child(3n) {
+    border-right: @borderThick;
+}
+
+.inputPanel .input-outer {
+    padding: @spacingSmall;
+}
+
+.inputPanel .input {
+    border: @borderThin;
+    border-radius: @spacingLarge;
+    padding: @spacingMedium;
+}
