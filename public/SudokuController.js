@@ -114,6 +114,12 @@ function SudokuController($, $board, rawBoard, $input) {
 
         model.init();
 
+        //set up event when navigating away from page
+        //Ideally, it would only do this when changes have been made
+        window.onbeforeunload = function() {
+            return "Leaving the page will reset your progress.";
+        }
+
         return this;
     }
 

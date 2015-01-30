@@ -16,6 +16,8 @@ Some design choices
     - Input panel: The input panel below the board is an easy way to input a number with two taps, and it doesn't
         cover the board like a pop-up would. And sudokuslam's solution is too small for mobile
     - Scoping: not hiding the inputPanel when no cell is focused
+    - Scoping: always have pop-up on navigation away from page, not just when there are unsaved changes
+    - Scoping: no clear all button... user can refresh if they want
 
 TODO's
     - Fix up all the object-oriented stuff

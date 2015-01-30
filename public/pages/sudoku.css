@@ -64,7 +64,8 @@ body {
     border: solid 2px red;
 }
 
-.sudokuBoard .square.selected {
+.sudokuBoard .square.selected,
+.inputPanel .input:active {
     background-color: lightgray;
 }
 
