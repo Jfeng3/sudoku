@@ -10,6 +10,13 @@ html(lang="en-US")
 
         //- intialize the controller
         script(type="text/javascript").
+            /*
+                We pass the generated data from the server here in the injected Javascript rather
+                than a URL param. This keeps it more hidden from the user (unless they open the source, which
+                your average user wouldn't think to do). This decision will be more important if/when we store
+                the solution to the board. Sure, the user can still finding by inspecting the page, but they're ruining the
+                fun for themselves
+            */
             $(document).ready(function() {
                 window.SUDO_CONTROLLER = new SudokuController(
                     $, $('#sudokuBoard'), [#{GENERATED_BOARD}], $('#inputPanel')
