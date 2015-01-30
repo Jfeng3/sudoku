@@ -3,7 +3,7 @@
 
     rawBoard - the intial board the user should solve, represented as a 2D array
     onChange - callback when a value changes, in the form:
-                function(row, col, val) {}
+                function(model, row, col, val) {}
 */
 function SudokuModel(rawBoard, onChange) {
 
@@ -46,9 +46,6 @@ function SudokuModel(rawBoard, onChange) {
             if (!isNaN(val) && !isGiven() && oldVal !== val) {
                 _val = val;
             }
-
-            //even if we don't change the value, notify subscribers so they're in sync
-            onChange(row, col, getVal());
         }
 
         /* Is there a value set on this square? */
@@ -56,20 +53,31 @@ function SudokuModel(rawBoard, onChange) {
             return !!getVal(); //null, undefined, or 0 can all be non-values
         }
 
-        return {
-            isGiven: isGiven,
-            getVal: getVal,
-            setVal: setVal,
-            hasVal: hasVal
-        }
+        //exported methods
+        this.isGiven = isGiven;
+        this.getVal = getVal;
+        this.setVal = setVal;
+        this.hasVal = hasVal;
     }
     /* End SudokuSquare model */
 
-    var board = rawBoard.map(function(rawRow, row) {
-        return rawRow.map(function(rawVal, col) {
-            return new SudokuSquare(row, col, rawVal);
+    var board;
+
+    function init() {
+        var model = this;
+        board = rawBoard.map(function(rawRow, row) {
+            return rawRow.map(function(rawVal, col) {
+                return new SudokuSquare(row, col, rawVal);
+            });
         });
-    });
+
+        //fire change handlers
+        for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
+            for (var iCol = 0; iCol < BOARD_SIZE; iCol++) {
+                this.setVal(iRow, iCol, getVal(iRow, iCol));
+            }
+        }
+    }
 
     /* Private helper to get a square at the given index */
     function _getSquare(row, col) {
@@ -78,7 +86,11 @@ function SudokuModel(rawBoard, onChange) {
 
     /* Sets a value on a square */
     function setVal(row, col, val) {
-        _getSquare(row, col).setVal(val);
+        var square = _getSquare(row, col);
+        square.setVal(val);
+
+        //even if we don't change the value, notify subscribers so they're in sync
+        onChange(this, row, col, square.getVal());
     }
 
     /* Gets the value of a square */
@@ -189,15 +201,15 @@ function SudokuModel(rawBoard, onChange) {
         return str;
     }
 
-    return {
-        setVal: setVal,
-        getVal: getVal,
-        hasVal: hasVal,
-        isValid: isValid,
-        isGiven: isGiven,
-        isBoardValid: isBoardValid,
-        isBoardCompleted: isBoardCompleted,
-        toString: toString
-    }
+    //exports
+    this.init = init;
+    this.setVal = setVal;
+    this.getVal = getVal;
+    this.hasVal = hasVal;
+    this.isValid = isValid;
+    this.isGiven = isGiven;
+    this.isBoardValid = isBoardValid;
+    this.isBoardCompleted = isBoardCompleted;
+    this.toString = toString;
 
 }

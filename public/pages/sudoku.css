@@ -51,6 +51,10 @@
     border: solid 1px black;
 }
 
+.sudokuBoard .square.given {
+    font-weight: bold;
+}
+
 .sudokuBoard .square.selected {
     background-color: lightgray;
 }

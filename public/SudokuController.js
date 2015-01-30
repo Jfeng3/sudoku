@@ -39,9 +39,17 @@ function SudokuController($, $board, rawBoard, $input) {
 
     function start() {
         //set up the model, and subscribe to value change notifications
-        model = new SudokuModel(_to2dArray(rawBoard, BOARD_SIZE), function(row, col, val) {
+        model = new SudokuModel(_to2dArray(rawBoard, BOARD_SIZE), function(model, row, col, val) {
             //on change, update the view. 0's convert to empty string
-            _getSquare(row, col).text(val || '');
+            var square = _getSquare(row, col);
+            square.text(val || '');
+
+            //mark the given squares
+            if (model.isGiven(row, col)) {
+                square.addClass('given');
+            } else {
+                square.removeClass('given');
+            }
         });
 
         //set up listeners for when the value changes in the UI
@@ -53,6 +61,7 @@ function SudokuController($, $board, rawBoard, $input) {
             return model.setVal(row, col, square.text());
         });
 
+        //set up handler for typing directly into a square
         squares.keypress(function(e) {
             var square = $(e.target);
             square.text(String.fromCharCode(e.which));
@@ -88,14 +97,15 @@ function SudokuController($, $board, rawBoard, $input) {
 
         //set up handler for validate button
         $input.find('.validate').click(function(e) {
-
+            //TODO validation
         });
+
+        model.init();
 
         return this;
     }
 
-    return {
-        getModel: getModel,
-        start: start
-    }
+    //function exports
+    this.getModel = getModel;
+    this.start = start;
 }
