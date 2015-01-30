@@ -19,8 +19,8 @@ function SudokuModel(rawBoard, onChange) {
     function SudokuSquare(row, col, val) {
 
         var _val;
-        setVal(val);
         var _isGiven = !!val; //this has to be after the initial setVal()
+        _setVal(val, false);
 
         /* Was this square given in the intial board? */
         function isGiven() {
@@ -35,15 +35,30 @@ function SudokuModel(rawBoard, onChange) {
         /* Set a value on this square, only if it is not given. If it is given,
             we call onChange to make sure subscribers know the value hasn't actually changed
 
-            The only validation that happens on inputs is making sure they are numbers */
+            The only validation that happens on inputs is making sure they are numbers
+            
+            Returns an error message to display, if applicable
+        */
         function setVal(val) {
+            return _setVal(val, true);
+        }
+        
+        /**
+            Same as the public setVal(), but for internal use. It allows skipping the
+            check of whether the square is given or not
+        */
+        function _setVal(val, checkGiven) {
             if (typeof val === 'string') {
                 val = val.trim();
             }
-            val = parseInt(val || 0); //convert undefined and null to 0
+            val = parseInt(val || 0); //convert undefined, null and empty string to 0
             var oldVal = getVal();
 
-            if (!isNaN(val) && !isGiven() && oldVal !== val) {
+            if (isNaN(val)) {
+                return 'Value entered must be a number';
+            } else if (checkGiven && isGiven()) {
+                return 'Cannot change the values of given squares';
+            } else {
                 _val = val;
             }
         }
@@ -81,14 +96,7 @@ function SudokuModel(rawBoard, onChange) {
                 if (this.hasVal(iRow, iCol)) {
                     numFilled++;
                 }
-                
-                /*
-                    setVal() will call _clearValidities() every time, but
-                    oh well. If init is a little inefficient, it's ok. It's only going
-                    to be used once per page load, or even if we support getting a new board it won't
-                    be the common an operation
-                */
-                this.setVal(iRow, iCol, getVal(iRow, iCol));
+                onChange(this, null, iRow, iCol, this.getVal(iRow, iCol));
             }
         }
     }
@@ -112,7 +120,7 @@ function SudokuModel(rawBoard, onChange) {
     function setVal(row, col, val) {
         var square = _getSquare(row, col);
         var hadVal = square.hasVal() ? 1 : 0;
-        square.setVal(val);
+        var err = square.setVal(val);
         var hasVal = square.hasVal() ? 1 : 0;
         
         //increment/decrement the number of filled squares
@@ -124,7 +132,7 @@ function SudokuModel(rawBoard, onChange) {
         _clearValidities();
 
         //even if we don't change the value, notify subscribers so they're in sync
-        onChange(this, row, col, square.getVal());
+        onChange(this, err, row, col, square.getVal());
     }
 
     /* Gets the value of a square */

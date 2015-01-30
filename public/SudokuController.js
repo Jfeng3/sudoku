@@ -42,17 +42,23 @@ function SudokuController($, $board, rawBoard, $input) {
         var output = $input.find('.output'); //a little confusing, but the output text is inside the input panel
 
         //set up the model, and subscribe to value change notifications
-        model = new SudokuModel(_to2dArray(rawBoard, BOARD_SIZE), function(model, row, col, val) {
+        model = new SudokuModel(_to2dArray(rawBoard, BOARD_SIZE), function(model, err, row, col, val) {
             //on any change, clear all validation and hide the output
             squares.removeClass('invalid');
             output.hide();
 
-            //on change, update the view. 0's convert to empty string
+            //on any change, update the view. 0's convert to empty string
             var square = _getSquare(row, col);
             square.text(val || '');
 
-            //mark the given squares
+            //mark the given squares. Sure, this doesn't need to happen on every change but oh well
+            //  It'll be nice to re-paint the whole board, so it's easy to implement completely refreshing the model
             square.toggleClass('given', model.isGiven(row, col));
+            
+            //if there was an error making the change, update the output text
+            if (err) {
+                output.text(err).addClass('error').show();
+            }
             
             //check if the board is completed. if so, display a message
             if (model.isBoardCompleted()) {
@@ -71,9 +77,19 @@ function SudokuController($, $board, rawBoard, $input) {
         });
 
         //set up handler for typing directly into a square
-        squares.keypress(function(e) {
+        squares.on('keypress keydown', function(e) {
             var square = $(e.target);
-            square.text(String.fromCharCode(e.which));
+            
+            switch (e.which) {
+                case 8: //BACKSPACE. fall through
+                case 46: //DELETE
+                    square.text('');
+                    e.preventDefault(); //don't let the browser try to go back in the history
+                    break;
+                
+                default:
+                    square.text(String.fromCharCode(e.which)); //just use the character text
+            }
             square.trigger('change');
         });
 
