@@ -61,6 +61,7 @@ function SudokuModel(rawBoard, onChange) {
     }
     /* End SudokuSquare model */
 
+    var numFilled; //the number of squares filled
     var board;
 
     function init() {
@@ -71,9 +72,13 @@ function SudokuModel(rawBoard, onChange) {
             });
         });
 
-        //fire change handlers
+        //fire change handlers, calculate how many are filled
+        numFilled = 0;
         for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
             for (var iCol = 0; iCol < BOARD_SIZE; iCol++) {
+                if (this.hasVal(iRow, iCol)) {
+                    numFilled++;
+                }
                 this.setVal(iRow, iCol, getVal(iRow, iCol));
             }
         }
@@ -87,7 +92,13 @@ function SudokuModel(rawBoard, onChange) {
     /* Sets a value on a square */
     function setVal(row, col, val) {
         var square = _getSquare(row, col);
+        var hadVal = square.hasVal() ? 1 : 0;
         square.setVal(val);
+        var hasVal = square.hasVal() ? 1 : 0;
+        
+        //increment/decrement the number of filled squares
+        var filledChange = (hasVal - hadVal);
+        numFilled += filledChange;
 
         //even if we don't change the value, notify subscribers so they're in sync
         onChange(this, row, col, square.getVal());
@@ -116,6 +127,16 @@ function SudokuModel(rawBoard, onChange) {
         We don't cache these values on the square because every value
         added/removed could affect the validity of other squares in its row,
         column and square. So we just validate whenever the user wants it
+        
+        Note about performance:
+            This method is not extremely performant, since it iterates through the board so much
+            I looked into having a method that iterates through every row/colum/sub-square to find duplicates
+            but it ended up being nearly as inefficient because I had to keep track of not only *whether* each
+            section has duplictes, but also where those duplicates were. This function is way easier to understand
+            
+            If the board has N squares total, each row/column/sub-square has sqrt(N) squares. For any particular input
+            it will go through one row, column and sub-square. So it is O(sqrt(N)), or in terms of my variables
+            O(BOARD_SIZE)
     */
     function isValid(row, col) {
         if (!hasVal(row, col)) {
@@ -161,17 +182,31 @@ function SudokuModel(rawBoard, onChange) {
 
         return true; //no repeats found
     }
-
-    /* Is the whole board valid? */
+    
+    /*
+        Is the whole board valid?
+        
+        BE CAUTIOUS using the function... it's not super efficient since it goes through every single square and
+        checks validity
+        
+        If there are N squares in the board, this method calls isValid(row,col) on each one, so this fucntion is
+        O(N * sqrt(N)), or in terms of my variables, O(BOARD_SIZE^3). Use it sparingly
+    */
     function isBoardValid() {
-        //TODO cache this value?
-
+        for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
+            for (var iCol = 0; iCol < BOARD_SIZE; iCol++) {
+                if (!isValid(iRow, iCol)) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
     }
 
     /* Is the whole board filled out? */
     function isBoardCompleted() {
-        //TODO cache this value?
-
+        return (numFilled === (BOARD_SIZE*BOARD_SIZE));
     }
 
     /*
