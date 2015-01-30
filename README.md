@@ -11,6 +11,10 @@
 The server is very thin. It simply responds to requests to '/' and returns a page that
 has the hardcoded Sudoku board
 
+### Technologies
+The server is in Node.js with Express which is very easy to get up an running for a thing client.
+The client uses JQuery and LESS to compile the CSS
+
 ### Client
 The client side uses an MVC pattern as much as possible
 - Model: public/SudokuModel.js, url: '/public/SudokuModel.js'
