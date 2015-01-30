@@ -77,6 +77,7 @@ function SudokuController($, $board, rawBoard, $input) {
         });
 
         //set up handler for typing directly into a square
+        //need to check keypress AND keydown because some browsers don't fire keypress for backspace and delete
         squares.on('keypress keydown', function(e) {
             var square = $(e.target);
             

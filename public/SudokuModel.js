@@ -49,6 +49,7 @@ function SudokuModel(rawBoard, onChange) {
         */
         function _setVal(val, checkGiven) {
             if (typeof val === 'string') {
+                // TODO: also remove zero-width characters. This was a problem with BACKSPACE before it was handled separately
                 val = val.trim();
             }
             val = parseInt(val || 0); //convert undefined, null and empty string to 0
