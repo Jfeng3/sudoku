@@ -53,6 +53,13 @@ function SudokuController($, $board, rawBoard, $input) {
 
             //mark the given squares
             square.toggleClass('given', model.isGiven(row, col));
+            
+            //check if the board is completed. if so, display a message
+            if (model.isBoardCompleted()) {
+                $board.trigger('sudo-validate', {
+                    suppressOutlines: true //don't highlight the invalid boxes unless the user wants to
+                });
+            }
         });
 
         //set up listeners for when the value changes in the UI
@@ -102,7 +109,7 @@ function SudokuController($, $board, rawBoard, $input) {
             $board.trigger('sudo-validate');
         });
         
-        $board.on('sudo-validate', function() {
+        $board.on('sudo-validate', function(e, params) {
             /*
                 This method is not super efficient because it goes through all
                 squares, and for each square goes through other squares. But if we want
@@ -110,17 +117,21 @@ function SudokuController($, $board, rawBoard, $input) {
                 then we probably need to do this
             */
 
-            for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
-                for (var iCol = 0; iCol < BOARD_SIZE; iCol++) {
-                    //add the invalid class to anything that's invalid
-                    _getSquare(iRow, iCol).toggleClass('invalid', !model.isValid(iRow, iCol));
+            if (!params || !params.suppressOutlines) {
+                for (var iRow = 0; iRow < BOARD_SIZE; iRow++) {
+                    for (var iCol = 0; iCol < BOARD_SIZE; iCol++) {
+                        //add the invalid class to anything that's invalid
+                        _getSquare(iRow, iCol).toggleClass('invalid', !model.isValid(iRow, iCol));
+                    }
                 }
             }
             
             if (model.isBoardValid()) { //not inefficient because we just calculated for each square, so this will be cached
-                output.text('No visible errors!').removeClass('error').show();
+                var message = model.isBoardCompleted() ? 'You\'ve completed the board! Woo!' : 'No visible errors!';
+                output.text(message).removeClass('error').show();
             } else {
-                output.text('You\'ve made some mistakes :(').addClass('error').show();
+                var message = model.isBoardCompleted() ? 'The board is filled, but there are mistakes. Oh no!' : 'There are mistakes. Oh no!';
+                output.text(message).addClass('error').show();
             }
         });
 

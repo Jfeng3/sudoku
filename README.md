@@ -112,8 +112,6 @@ The styling uses LESS to compile the CSS and use some variables for values that 
 
 ## Other scoping decisions/future tasks
 1. Display error message when user inputs something invalid, or tries to change a given square
-2. Display message when user validates and there are no problems
-3. Display a success message when the board is finished
 4. Add hover text for buttons to explain what they do
 5. Hide or disable the input panel when there is no selected square
 6. Allow for multiple onChange callbacks in the model
