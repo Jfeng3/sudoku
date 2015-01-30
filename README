@@ -20,6 +20,11 @@ Some design choices
     - Scoping: no clear all button... user can refresh if they want
     - Scoping: NOT: Allow a checkbox that user can enable to validate after every move
     - Scoping: NOT: Undo/redo
+    - Scoping: not using icons
+    - When validating, "given" squares will get highlighted too even though you can't change them. This is
+        because it helps highlight what makes the other one invalid
+    - Didn't make focus go back to a square after selecting a value for it... I'm not sure how usable that is, but
+        it could be useful
 
 TODO's
     - Fix up all the object-oriented stuff
