@@ -97,6 +97,10 @@ function SudokuController($, $board, rawBoard, $input) {
 
         //set up handler for validate button
         $input.find('.validate').click(function(e) {
+            $board.trigger('sudo-validate');
+        });
+        
+        $board.on('sudo-validate', function() {
             /*
                 This method is not super efficient because it goes through all
                 squares, and for each square goes through other squares. But if we want

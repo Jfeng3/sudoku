@@ -18,7 +18,7 @@
 @borderWidthThick: 3px;
 @borderThin: solid @borderWidthThin @borderColor;
 @borderThick: solid @borderWidthThick @borderColor;
-@borderError: solid @borderWidthThin @borderColorError;
+@borderError: solid @borderWidthThick @borderColorError;
 
 @spacingSmall: 3px;
 @spacingMedium: 8px;
@@ -123,7 +123,7 @@ body {
 }
 
 .sudokuBoard .square.invalid {
-    border: @borderThick;
+    border: @borderError;
 }
 
 .sudokuBoard .square.selected,
