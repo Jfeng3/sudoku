@@ -7,6 +7,10 @@ Things I'd do better
     - Have my routes defined in one central location without using JS strings in web.js
     - Really actually generate a sudoku board (maybe even store it in the session so it's not lost on page refresh)
     - Make it more keyboard accessible: up/down arrow keys should move between cells
+    - The input buttons are still a little small on mobile
+    - aria-* attributes
+    - Better colors and stuff :)
+    - Make sure font size scales a little better
 
 Some design choices
     - Not (yet) storing the solution. All the validation I'll do is based on the simple rules
@@ -25,15 +29,17 @@ Some design choices
         because it helps highlight what makes the other one invalid
     - Didn't make focus go back to a square after selecting a value for it... I'm not sure how usable that is, but
         it could be useful
+    - Not allowing user to validate just one square, because the UX would be weird
+    - Not providing suggestions, better validation, or anything.... that would take too long. Not generating boards
+        either
 
 TODO's
-    - Fix up all the object-oriented stuff
-    - Allow user to pick a square to validate
     - Display error message when user inputs something incorrect, or tries to change a given field
     - Display message when user validates and there are no problems
     - Display message when board is finished
+    - Add hover text for buttons to explain what they do
     - Use LESS for CSS
 
 OTHER NOTES TO INCLUDE
     - How to run the server
-    - Validation method is not super efficient, but that's how it has to beg
+    - Validation method is not super efficient, but that's how it has to be

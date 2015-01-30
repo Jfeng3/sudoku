@@ -35,7 +35,7 @@ body {
     display: table;
     border-collapse: collapse;
 
-    font-size: 1.5rem;
+    font-size: 20pt;
 }
 
 .sudokuBoard {
@@ -88,5 +88,5 @@ body {
 .inputPanel .input {
     border: solid 1px black;
     border-radius: 20px;
-    padding: 12px;
+    padding: 8px;
 }
