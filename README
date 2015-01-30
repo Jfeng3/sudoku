@@ -21,12 +21,11 @@ Some design choices
 
 TODO's
     - Fix up all the object-oriented stuff
-    - Fix the validation function
     - Allow user to pick a square to validate
-    - Allow user to validate the whole board
+    - Display error message when user inputs something incorrect, or tries to change a given field
+    - Display message when user validates and there are no problems
     - Allow a checkbox that user can enable to validate after every move
     - Undo/redo
-    - Display error message when user inputs something incorrect, or tries to change a given field
 
 OTHER NOTES TO INCLUDE
     - How to run the server
