@@ -18,14 +18,17 @@ Some design choices
     - Scoping: not hiding the inputPanel when no cell is focused
     - Scoping: always have pop-up on navigation away from page, not just when there are unsaved changes
     - Scoping: no clear all button... user can refresh if they want
+    - Scoping: NOT: Allow a checkbox that user can enable to validate after every move
+    - Scoping: NOT: Undo/redo
 
 TODO's
     - Fix up all the object-oriented stuff
     - Allow user to pick a square to validate
     - Display error message when user inputs something incorrect, or tries to change a given field
     - Display message when user validates and there are no problems
-    - Allow a checkbox that user can enable to validate after every move
-    - Undo/redo
+    - Display message when board is finished
+    - Use LESS for CSS
 
 OTHER NOTES TO INCLUDE
     - How to run the server
+    - Validation method is not super efficient, but that's how it has to beg

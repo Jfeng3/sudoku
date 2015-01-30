@@ -1,5 +1,3 @@
-/** TODO use LESS for CSS variables */
-
 body {
     font-family: sans-serif;
 }
@@ -79,6 +77,6 @@ body {
 
 .inputPanel .input {
     border: solid 1px black;
-    border-radius: 25%;
+    border-radius: 20px;
     padding: 4px;
 }

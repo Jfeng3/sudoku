@@ -32,15 +32,16 @@ html(lang="en-US")
                     - }
             - }
 
-        div#inputPanel.inputPanel
-            div.row
-                - for (var iVal = 1; iVal <= BOARD_SIZE; iVal++) {
-                    div.input-outer
-                        div.input(value="#{iVal}") #{iVal}
-                - }
-            div.row
+        div#inputPanel
+            div.inputPanel
+                div.row
+                    - for (var iVal = 1; iVal <= BOARD_SIZE; iVal++) {
+                        div.input-outer
+                            div.input(value="#{iVal}") #{iVal}
+                    - }
+
+            div.inputPanel
                 div.input-outer
                     div.input.validate Check
-                div.input-outer
                 div.input-outer
                     div.input.clear Clear
