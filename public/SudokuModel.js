@@ -148,8 +148,8 @@ function SudokuModel(rawBoard, onChange) {
         }
 
         //check the sub-square for repeats
-        var subSquareRow = Math.floor(row / NUM_SQUARES);
-        var subSquareCol = Math.floor(col / NUM_SQUARES);
+        var subSquareRow = row - (row % NUM_SQUARES);
+        var subSquareCol = col - (col % NUM_SQUARES);
         for (var iRow = subSquareRow; iRow < (subSquareRow + SQUARE_SIZE); iRow++) {
             if (iRow === row) continue;
             for (var iCol = subSquareCol; iCol < (subSquareCol + SQUARE_SIZE); iCol++) {
