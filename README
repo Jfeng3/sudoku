@@ -1,3 +1,16 @@
+Sudoku by Kapil Easwar
+======================
+
+How to run
+
+Technical design
+
+Things I would improve
+
+Notes on design choices
+
+Some remaining to-do's that would be easy to do
+
 Things I'd do better
     - Big thing: not have to duplicate constants (board size, etc.) and CSS classes (duplicated in JS, HTML and CSS)
     - Specify the port to listen to based on environment var (if you wanted to host on Heroku you'd do this)
@@ -32,13 +45,10 @@ Some design choices
     - Not allowing user to validate just one square, because the UX would be weird
     - Not providing suggestions, better validation, or anything.... that would take too long. Not generating boards
         either
+    - Validation method is not super efficient, but that's how it has to be
 
 TODO's
     - Display error message when user inputs something incorrect, or tries to change a given field
     - Display message when user validates and there are no problems
     - Display message when board is finished
     - Add hover text for buttons to explain what they do
-
-OTHER NOTES TO INCLUDE
-    - How to run the server
-    - Validation method is not super efficient, but that's how it has to be
