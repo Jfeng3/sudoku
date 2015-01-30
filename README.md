@@ -1,10 +1,12 @@
 # Sudoku by Kapil Easwar
 
 ## How to run
+(0. Need to install node and npm)
 1. Clone the git repo (see instructions in Github)
 2. cd sudoku (into the repo)
-3. run 'node web.js'
-4. The server will now be listening on localhost:8080
+3. install dependencies with 'npm install', to make sure this doesn't fail
+4. run 'node web.js'
+5. The server will now be listening on localhost:8080
 
 ## Technical design
 ### Server: web.js
