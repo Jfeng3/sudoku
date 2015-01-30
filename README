@@ -1,20 +1,17 @@
-Sudoku by Kapil Easwar
-======================
+#Sudoku by Kapil Easwar
 
-How to run
-----------
+##How to run
 1) Clone the git repo (see instructions in Github)
 2) cd sudoku (into the repo)
 3) run 'node web.js'
 4) The server will now be listening on localhost:8080
 
-Technical design
-----------------
-Server: web.js
+##Technical design
+###Server: web.js
     The server is very thin. It simply responds to requests to '/' and returns a page that
     has the hardcoded Sudoku board
 
-Client
+###Client
     The client side uses an MVC pattern as much as possible
         Model: public/SudokuModel.js, url: '/public/SudokuModel.js'
         Controller: public/SudokuController.js, url: '/public/SudokuController.js'
@@ -43,8 +40,7 @@ Client
         This input method was chosen because, unlike a pop-up, it doesn't hide the board as you're entering a value. The
         keyboard input method is more for keyboard-based inputs
 
-Things I would improve
-----------------------
+##Things I would improve
 Remove duplication of constants
     I tried to make it as extensible as possible to when its a 4x4x4 board, for example. The problem is, these dimensions
     are in constants all over the place. In the server in web.js, and two places in the client in SudokuModel.js and
@@ -75,8 +71,7 @@ Mobile UI and other UI polish
         scale with the squares of the sudoku board
     Also, I'd use better colors and borders
 
-Design choices and scoping decisions
-------------------------------------
+##Design choices and scoping decisions
 Not storing the solution
     I decided not to store the board's solution mostly to cut scope and time. This means that all the validation
     (when the user clicks "Check") is only based on "visible" errors. If the user enters a 2 in a square, the validation
@@ -98,8 +93,7 @@ After you select a value for a square, maybe the focus should jump back to it. B
 I'm not allowing user to validate just one square, because I didn't know what the UX would look like for that. Instead
     they have to validate the whole board at once
 
-Other scoping decisions/future tasks
-------------------------------------
+##Other scoping decisions/future tasks
     - Display error message when user inputs something invalid, or tries to change a given square
     - Display message when user validates and there are no problems
     - Display a success message when the board is finished
