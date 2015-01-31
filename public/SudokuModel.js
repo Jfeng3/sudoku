@@ -55,10 +55,10 @@ function SudokuModel(rawBoard, onChange) {
             val = parseInt(val || 0); //convert undefined, null and empty string to 0
             var oldVal = getVal();
 
-            if (isNaN(val)) {
-                return 'Value entered must be a number';
-            } else if (checkGiven && isGiven()) {
+            if (checkGiven && isGiven()) {
                 return 'Cannot change the values of given squares';
+            } else if (isNaN(val)) {
+                return 'Value entered must be a number';
             } else {
                 _val = val;
             }

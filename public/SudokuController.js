@@ -77,21 +77,23 @@ function SudokuController($, $board, rawBoard, $input) {
         });
 
         //set up handler for typing directly into a square
-        //need to check keypress AND keydown because some browsers don't fire keypress for backspace and delete
-        squares.on('keypress keydown', function(e) {
+        squares.keypress(function(e) {
+            $(e.target).text(String.fromCharCode(e.which)).trigger('change');
+        });
+        
+        //set up handler for special keys (DELETE and BACKSPACE)
+        squares.keydown(function(e) {
             var square = $(e.target);
-            
             switch (e.which) {
                 case 8: //BACKSPACE. fall through
                 case 46: //DELETE
                     square.text('');
                     e.preventDefault(); //don't let the browser try to go back in the history
                     break;
-                
+
                 default:
-                    square.text(String.fromCharCode(e.which)); //just use the character text
+                    //do nothing
             }
-            square.trigger('change');
         });
 
         //on focus in, change which cell is "selected"

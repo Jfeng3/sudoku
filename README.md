@@ -113,12 +113,11 @@ The styling uses LESS to compile the CSS and use some variables for values that 
     they have to validate the whole board at once
 
 ## Other scoping decisions/future tasks
-1. Add hover text for buttons to explain what they do
-2. Hide or disable the input panel when there is no selected square
-3. Allow for multiple onChange callbacks in the model
-4. Only have pop-up when navigating away from the page when there are actually unsaved changes
-5. Allow for undo/redo
-6. Actually generate Sudoku board
-7. Store the stored Sudoku board in the session so it's not lost on page refresh. Provide a "New game" button to
+1. Hide or disable the input panel when there is no selected square
+2. Allow for multiple onChange callbacks in the model
+3. Only have pop-up when navigating away from the page when there are actually unsaved changes
+4. Allow for undo/redo
+5. Actually generate Sudoku board
+6. Store the stored Sudoku board in the session so it's not lost on page refresh. Provide a "New game" button to
         explicitly request a new board
-8. Add a timer and user profiles so a user can track progress and compare to their friends
+7. Add a timer and user profiles so a user can track progress and compare to their friends
